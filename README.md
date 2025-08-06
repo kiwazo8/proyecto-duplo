@@ -4,4 +4,4 @@
   <li>Es un juego</li>
   <li>Basado en el truco</li>
 </ul>
-<img src="ilustracion.jpg" alt="El mejor juego del mundo">
+<img src="ilustracion.jpg" alt="El mejor juego del mundo" width="100">
