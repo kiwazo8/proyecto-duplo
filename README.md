@@ -5,3 +5,4 @@
   <li>Basado en el truco</li>
 </ul>
 <img src="ilustracion.jpg" alt="El mejor juego del mundo" width="400">
+<img src="mapa.png">
