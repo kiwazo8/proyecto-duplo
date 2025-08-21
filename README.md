@@ -5,4 +5,4 @@
   <li>Basado en el truco</li>
 </ul>
 <img src="ilustracion.jpg" alt="El mejor juego del mundo" width="400">
-<img src="mapa.png">
+<a href=https://www.youtube.com/watch?v=3WfegWZzxek><img src="mapa.png"></a>
