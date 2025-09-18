@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="juego.css">
   </head>
   <body>
+    <script src="juego.js"></script>
     <button id="btnTop" class="btn top-center">puntos</button>
 
     <div class="bottom-row">
@@ -32,15 +33,15 @@
         el.addEventListener('click', fn);
       }
 
-      setAction('btnTop', () => alert('Hiciste clic en el botón SUPERIOR'));
-      setAction('btnBottom1', () => console.log('CANTO TRUCO'));
-      setAction('btnBottom2', () => console.log('CANTO RETRUCO'));
-      setAction('btnBottom3', () => console.log('CANTO VALE CUATRO'));
-      setAction('btnBottom4', () => console.log('CANTO ENVIDO'));
-      setAction('btnBottom5', () => console.log('CANTO REAL ENVIDO'));
-      setAction('btnBottom6', () => console.log('CANTO FALTA ENVIDO'));
-      setAction('btnRight1', () => alert('QUIERO comer milanesas'));
-      setAction('btnRight2', () => alert('NO QUIERO tomar terma'));
+      setAction('btnTop', () => console.log("reviso los puntos"));
+      setAction('btnBottom1', () => console.log("CANTO TRUCO"));
+      setAction('btnBottom2', () => console.log("CANTO RETRUCO"));
+      setAction('btnBottom3', () => console.log("CANTO VALE CUATRO"));
+      setAction('btnBottom4', () => console.log("CANTO ENVIDO"));
+      setAction('btnBottom5', () => console.log("CANTO REAL ENVIDO"));
+      setAction('btnBottom6', () => console.log("CANTO FALTA ENVIDO"));
+      setAction('btnRight1', () => alert("QUIERO comer milanesas"));
+      setAction('btnRight2', () => alert("NO QUIERO tomar terma"));
     </script>
   </body>
 </html>
