@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Druplo</title>
-    <link rel="stylesheet" href="juego.css">
-  </head>
-  <body>
-    <script src="juego.js"></script>
-    <button id="btnTop" class="btn top-center">puntos</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Truco con Bot</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0b4d0b; color: white; text-align: center; }
+    .mesa { display: flex; justify-content: center; margin: 20px; }
+    .cartas { display: flex; gap: 10px; margin: 20px; justify-content: center; }
+    .carta { width: 80px; height: 120px; background: #fff; color: black; border-radius: 8px;
+             display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .bot { filter: brightness(0.4); }
+    #log { background: #222; padding: 10px; border-radius: 5px; height: 180px; overflow-y: auto; margin: 10px auto; width: 90%; max-width: 600px; }
+    button { margin: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
 
-    <div class="bottom-row">
-      <button id="btnBottom1" class="btn">truco</button>
-      <button id="btnBottom2" class="btn">retruco</button>
-      <button id="btnBottom3" class="btn">vale cuatro</button>
-      <button id="btnBottom4" class="btn">envido</button>
-      <button id="btnBottom5" class="btn">real envido</button>
-      <button id="btnBottom6" class="btn">falta envido</button>
-    </div>
+<h1>Truco con Bot</h1>
 
-    <div class="right-stack">
-      <button id="btnRight1" class="btn">Quiero</button>
-      <button id="btnRight2" class="btn">No quiero</button>
-    </div>
+<div class="mesa" id="mesa"></div>
 
-    <div class="hint">hay que meter el juego aca y falta la parte de timi</div>
+<h2>Tus cartas</h2>
+<div class="cartas" id="tusCartas"></div>
 
-    <script>
-      function setAction(buttonId, fn) {
-        const el = document.getElementById(buttonId);
-        if (!el) return;
-        el.addEventListener('click', fn);
-      }
+<h2>Cartas del bot</h2>
+<div class="cartas" id="cartasBot"></div>
 
-      setAction('btnTop', () => console.log("reviso los puntos"));
-      setAction('btnBottom1', () => console.log("CANTO TRUCO"));
-      setAction('btnBottom2', () => console.log("CANTO RETRUCO"));
-      setAction('btnBottom3', () => console.log("CANTO VALE CUATRO"));
-      setAction('btnBottom4', () => console.log("CANTO ENVIDO"));
-      setAction('btnBottom5', () => console.log("CANTO REAL ENVIDO"));
-      setAction('btnBottom6', () => console.log("CANTO FALTA ENVIDO"));
-      setAction('btnRight1', () => alert("QUIERO comer milanesas"));
-      setAction('btnRight2', () => alert("NO QUIERO tomar terma"));
-    </script>
-  </body>
+<div class="bottom-row">
+  <button id="btnTruco" onclick="cantarTruco()">Truco</button>
+  <button id="btnEnvido" onclick="cantarEnvido()">Envido</button>
+  <button id="btnRealEnvido" onclick="cantarRealEnvido()">Real Envido</button>
+  <button id="btnFaltaEnvido" onclick="cantarFaltaEnvido()">Falta Envido</button>
+</div>
+
+<h3>Puntos: Vos <span id="puntosJugador">0</span> - Bot <span id="puntosBot">0</span></h3>
+
+<div id="log"></div>
+
+<script src="juego.js"></script>
+</body>
 </html>
