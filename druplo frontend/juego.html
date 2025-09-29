@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juego</title>
+  <title>Truco con Bot</title>
   <style>
     body { font-family: Arial, sans-serif; background: #0b4d0b; color: white; text-align: center; }
     .mesa { display: flex; justify-content: center; margin: 20px; }
@@ -29,8 +29,10 @@
 <h2>Cartas del bot</h2>
 <div class="cartas" id="cartasBot"></div>
 
-<div class="linea-fondo">
+<div class="bottom-row">
   <button id="btnTruco" onclick="cantarTruco()">Truco</button>
+  <button id="btnRetruco" onclick="cantarRetruco()" disabled>Retruco</button>
+  <button id="btnVale4" onclick="cantarVale4()" disabled>Vale 4</button>
   <button id="btnEnvido" onclick="cantarEnvido()">Envido</button>
   <button id="btnRealEnvido" onclick="cantarRealEnvido()">Real Envido</button>
   <button id="btnFaltaEnvido" onclick="cantarFaltaEnvido()">Falta Envido</button>
@@ -39,6 +41,7 @@
 <h3>Puntos: Vos <span id="puntosJugador">0</span> - Bot <span id="puntosBot">0</span></h3>
 
 <div id="log"></div>
+
 <script src="juego.js"></script>
 </body>
 </html>
