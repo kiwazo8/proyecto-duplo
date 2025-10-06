@@ -118,35 +118,70 @@ function chooseBotCardWhenStarting(){
   return min;
 }
 
-function botRespondToPlayer(cartaJugador){
-  if(rondaTerminada) return;
-  let choice = manoBot.find(c => c.fuerza > cartaJugador.fuerza);
-  if(!choice) choice = manoBot.reduce((a,b)=> a.fuerza < b.fuerza ? a : b);
-  manoBot.splice(manoBot.indexOf(choice),1);
+function botRespondToPlayer(cartaJugador) {
+  if (rondaTerminada) return;
+  let posibles = manoBot.filter(c => c.fuerza > cartaJugador.fuerza);
+  let choice;
+  if (posibles.length > 0) {
+    choice = posibles.reduce((a, b) => a.fuerza < b.fuerza ? a : b);
+  } else {
+    choice = manoBot.reduce((a, b) => a.fuerza < b.fuerza ? a : b);
+  }
+  manoBot.splice(manoBot.indexOf(choice), 1);
   playedBot = choice;
   log(`Bot jugó ${choice.numero} de ${choice.palo}`);
   resolveBaza();
   renderCartas();
 }
 
-function resolveBaza(){
-  if(!playedPlayer || !playedBot) return;
+function resolveBaza() {
+  if (!playedPlayer || !playedBot) return;
   const fp = playedPlayer.fuerza;
   const fb = playedBot.fuerza;
   let ganador = null;
-  if(fp > fb){ ganador = "player"; bazasJugador++; log("Ganaste la baza."); }
-  else if(fb > fp){ ganador = "bot"; bazasBot++; }
-  else { ganador = "tie"; log("Baza empatada."); }
+  if (fp > fb) {
+    ganador = "player";
+    bazasJugador++;
+  } else if (fb > fp) {
+    ganador = "bot";
+    bazasBot++;
+  } else {
+    ganador = "tie";
+    log("Baza empatada.");
+  }
   playedPlayer = null;
   playedBot = null;
-  if(bazasJugador === 2 || bazasBot === 2){ finishHandByBazas(); return; }
+  if (bazasJugador === 2 || bazasBot === 2) {
+    finishHandByBazas();
+    return;
+  }
+  if (bazasJugador + bazasBot === 2) {
+    if (bazasJugador === 1 && bazasBot === 0) {
+      finishHandByBazas();
+      return;
+    }
+    if (bazasBot === 1 && bazasJugador === 0) {
+      finishHandByBazas();
+      return;
+    }
+  }
   let siguiente;
-  if(ganador === "player") siguiente = "player";
-  else if(ganador === "bot") siguiente = "bot";
+  if (ganador === "player") siguiente = "player";
+  else if (ganador === "bot") siguiente = "bot";
   else siguiente = (empiezaJugador ? "player" : "bot");
-  if(siguiente === "player"){ turnoJugador = true; renderCartas(); }
-  else { turnoJugador = false; setTimeout(()=> { if(rondaTerminada) return; botPlayFirst(); }, 600); }
+
+  if (siguiente === "player") {
+    turnoJugador = true;
+    renderCartas();
+  } else {
+    turnoJugador = false;
+    setTimeout(() => {
+      if (rondaTerminada) return;
+      botPlayFirst();
+    }, 600);
+  }
 }
+
 
 function finishHandByBazas(){
   rondaTerminada = true;
