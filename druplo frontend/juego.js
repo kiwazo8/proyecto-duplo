@@ -51,8 +51,6 @@ function repartir(){
   bazasJugador = 0;
   bazasBot = 0;
   safeDisable("btnTruco", false);
-  safeDisable("btnRetruco", true);
-  safeDisable("btnVale4", true);
   safeDisable("btnEnvido", false);
   safeDisable("btnRealEnvido", false);
   safeDisable("btnFaltaEnvido", false);
@@ -182,7 +180,6 @@ function resolveBaza() {
   }
 }
 
-
 function finishHandByBazas(){
   rondaTerminada = true;
   let pts = 1;
@@ -221,18 +218,17 @@ function irseAlMazo(){
 
 function cantarTruco(){
   if(trucoNivel >= 0 || rondaTerminada) return log("Truco ya cantado");
-  trucoNivel = 0;
+  trucoNivel = 1;
   log("Cantas Truco");
   safeDisable("btnTruco", true);
-  safeDisable("btnRetruco", false);
-  safeDisable("btnVale4", true);
   safeDisable("btnEnvido", true);
   safeDisable("btnRealEnvido", true);
   safeDisable("btnFaltaEnvido", true);
   const sum = manoBot.reduce((s,c)=>s+c.fuerza,0);
   const quiere = sum >= 24 ? Math.random() < 0.95 : Math.random() < 0.6;
-  if(quiere) log("Bot quiere Truco");
-  else {
+  if(quiere) {
+    log("Bot quiere Truco");
+  } else {
     log("Bot no quiere Truco");
     puntosJugador += 1;
     actualizarPuntos();
@@ -241,43 +237,8 @@ function cantarTruco(){
   }
 }
 
-function cantarRetruco(){
-  if(trucoNivel !== 0 || rondaTerminada) return log("No puedes cantar Retruco aún");
-  trucoNivel = 1;
-  log("Cantas Retruco");
-  safeDisable("btnRetruco", true);
-  safeDisable("btnVale4", false);
-  const sum = manoBot.reduce((s,c)=>s+c.fuerza,0);
-  const quiere = sum >= 26 ? Math.random() < 0.95 : Math.random() < 0.5;
-  if(quiere) log("Bot quiere Retruco");
-  else {
-    log("Bot no quiere Retruco");
-    puntosJugador += 2;
-    actualizarPuntos();
-    rondaTerminada = true;
-    setTimeout(()=> repartir(), 1000);
-  }
-}
-
-function cantarVale4(){
-  if(trucoNivel !== 1 || rondaTerminada) return log("No puedes cantar Vale 4 aún");
-  trucoNivel = 2;
-  log("Cantas Vale 4");
-  safeDisable("btnVale4", true);
-  const sum = manoBot.reduce((s,c)=>s+c.fuerza,0);
-  const quiere = sum >= 30 ? Math.random() < 0.98 : Math.random() < 0.4;
-  if(quiere) log("Bot quiere Vale 4");
-  else {
-    log("Bot no quiere Vale 4");
-    puntosJugador += 3;
-    actualizarPuntos();
-    rondaTerminada = true;
-    setTimeout(()=> repartir(), 1000);
-  }
-}
-
 function cantarEnvido(){
-  if(envidoCantado || playedPlayer || playedBot || rondaTerminada) return;
+  if (envidoCantado) return
   envidoCantado = true;
   safeDisable("btnEnvido", true);
   safeDisable("btnRealEnvido", true);
