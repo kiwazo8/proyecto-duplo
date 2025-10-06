@@ -214,6 +214,13 @@ function irseAlMazo(){
   actualizarPuntos();
   safeDisable("btnMazo", true);
   setTimeout(()=> repartir(), 1200);
+  if(!envidoCantado){
+    if(turnoJugador){
+      puntosBot += 1;
+    } else {
+      puntosJugador += 1;
+    }
+  }
 }
 
 function cantarTruco(){
@@ -259,7 +266,7 @@ function cantarEnvido(){
 }
 
 function cantarRealEnvido(){
-  if(envidoCantado || playedPlayer || playedBot || rondaTerminada) return;
+  if(envidoCantado) return;
   envidoCantado = true;
   safeDisable("btnEnvido", true);
   safeDisable("btnRealEnvido", true);
@@ -280,14 +287,14 @@ function cantarRealEnvido(){
 }
 
 function cantarFaltaEnvido(){
-  if(envidoCantado || playedPlayer || playedBot || rondaTerminada) return;
+  if(envidoCantado) return;
   envidoCantado = true;
   safeDisable("btnEnvido", true);
   safeDisable("btnRealEnvido", true);
   safeDisable("btnFaltaEnvido", true);
   const eJ = calcularEnvido(manoJugador);
   const eB = calcularEnvido(manoBot);
-  const falta = 30 - Math.max(puntosJugador, puntosBot);
+  const falta = 15 - Math.max(puntosJugador, puntosBot);
   const quiere = eB >= 28 ? true : Math.random() < 0.5;
   if(quiere){
     log(`Bot quiere Falta Envido. Vos: ${eJ} - Bot: ${eB}`);
@@ -313,6 +320,40 @@ function log(txt){
   if(!d) return;
   d.innerHTML += `<div>${txt}</div>`;
   d.scrollTop = d.scrollHeight;
+}
+
+function mostrarFinal(ganador, mensaje) {
+  const overlay = document.createElement("div");
+  overlay.id = "overlayFinal";
+  overlay.style.cssText = `
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.9); color:white; display:flex;
+    flex-direction:column; align-items:center; justify-content:center;
+    font-size:2rem; z-index:9999;
+  `;
+  overlay.innerHTML = `
+    <div>${mensaje}</div>
+    <div style="margin:20px">Puntaje final: Vos ${puntosJugador} - Bot ${puntosBot}</div>
+    <button id="btnReiniciar" style="padding:10px 20px; font-size:1.5rem; cursor:pointer;">Jugar de nuevo</button>
+  `;
+  document.body.appendChild(overlay);
+  document.getElementById("btnReiniciar").onclick = ()=>{
+    document.body.removeChild(overlay);
+    puntosJugador = 0;
+    puntosBot = 0;
+    repartir();
+    actualizarPuntos();
+  };
+}
+
+function checkFinPartido() {
+  if (puntosJugador >= 15 || puntosBot >= 15) {
+    const ganador = puntosJugador >= 15 ? "Vos" : "El bot";
+    const mensaje = puntosJugador >= 15 ? "Te ganaste el partido, je!" : "Te re cagó el bot, boludo!";
+    mostrarFinal(ganador, mensaje);
+  } else {
+    setTimeout(()=> repartir(), 1200);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", repartir);
