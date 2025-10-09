@@ -1,14 +1,14 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #FF00FF; /* Fondo rosa fuerte */
-    color: #0000FF;            /* Texto azul */
+    background-color: #FF00FF; 
+    color: #0000FF;            
     text-align: center;
     margin: 0;
     padding: 0;
 }
 
 .menu-opciones {
-    background-color: #FFFF00; /* Fondo amarillo */
+    background-color: #FFFF00; 
     color: #0000FF;
     padding: 40px;
     margin: 50px auto;
