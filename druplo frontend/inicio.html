@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DRUPLO</title>
-    <link rel="stylesheet" type="text/css" href="inicio.css">
-
-</head>
-<body>
-    <h1>
-        DRUPLO
-    </h1>
-    <h2>
-        El juego mas mejor de todos
-    </h2>
-    <ul>
-        <li>
-            <a href="juego.html">JUGAR</a>
-        </li>
-        <li>
-            <a href="opciones.html">OPCIONES</a>
-        </li>
-        <li>
-            <a href="iniciosecion.html">CAMBIAR CUENTA</a>
-        </li>
-    </ul>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DRUPLO</title>
+        <link rel="stylesheet" type="text/css" href="inicio.css">
+    </head>
+    <body>
+        <h1>
+            DRUPLO
+        </h1>
+        <h2>
+            El juego mas mejor de todos
+        </h2>
+        <ul>
+            <li>
+                <a href="juego.html">JUGAR</a>
+            </li>
+            <li>
+                <a href="#" id="openOptions">OPCIONES</a>
+            </li>
+            <li>
+                <a href="#">COLECCION</a>
+            </li>
+            <li>
+                <a href="iniciosecion.html">CAMBIAR CUENTA</a>
+            </li>
+        </ul>
+        <div id="overlay">
+            <div id="modal">
+                <h3>Opciones</h3>
+                <div class="slidecontainer">
+                    <p>volumen 🔊</p>
+                    <input type="range" min="0" max="100" value="100" class="volumen" id="myRange">
+                </div>
+                <p>dificultad 😈</p>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="60" class="slider" id="myRange" step="20">
+                  </div>
+                <button id="closeModal">Cerrar</button>
+            </div>
+        </div>
+        <script>
+            document.getElementById('openOptions').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevents navigating away
+                document.getElementById('overlay').style.display = 'block';
+            });
+        
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('overlay').style.display = 'none';
+            });
+        </script>
+    </body>
 </html>
