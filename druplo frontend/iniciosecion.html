@@ -12,13 +12,44 @@
     <h1>DRUPLO</h1>
     <p>Inicio de Sesión</p>
     
-    <form>
-      <input type="text" placeholder="Usuario">
-      <input type="password" placeholder="Contraseña">
+    <form id="loginForm">
+      <input type="text" id="usuario" placeholder="Usuario" required>
+      <input type="password" id="contrasena" placeholder="Contraseña" required>
       <button type="submit">Ingresar</button>
     </form>
 
     <a href="crearcuenta.html">Crear cuenta</a>
+    <p id="mensaje" style="color:red; margin-top:10px;"></p>
   </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const mensaje = document.getElementById("mensaje");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const usuario = document.getElementById("usuario").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+      
+      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      const encontrado = usuarios.find(u => u.usuario === usuario && u.contrasena === contrasena);
+
+      if (encontrado) {
+        mensaje.style.color = "green";
+        mensaje.textContent = "Inicio de sesión exitoso";
+      
+        localStorage.setItem("usuarioActivo", JSON.stringify(encontrado));
+        setTimeout(() => {
+          window.location.href = "inicio.html"; 
+        }, 1000);
+
+      } else {
+        mensaje.style.color = "red";
+        mensaje.textContent = "Usuario o contraseña incorrectos";
+      }
+    });
+  </script>
 </body>
 </html>
