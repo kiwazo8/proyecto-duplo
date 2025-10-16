@@ -34,12 +34,20 @@
             <div id="modal">
                 <h3>Opciones</h3>
                 <div class="slidecontainer">
-                    <p>volumen 🔊</p>
+                    <p>Volumen General</p>
                     <input type="range" min="0" max="100" value="100" class="volumen" id="myRange">
                 </div>
-                <p>dificultad 😈</p>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="100" value="60" class="slider" id="myRange" step="20">
+                    <p>Volumen Musica</p>
+                    <input type="range" min="0" max="100" value="100" class="volumen" id="myRange">
+                </div>
+                <div class="slidecontainer">
+                    <p>Volumen Efectos de Sonido</p>
+                    <input type="range" min="0" max="100" value="100" class="volumen" id="myRange">
+                </div>
+                <p>Velocidad</p>
+                <div class="slidecontainer">
+                    <input type="range" min="0.5" max="2" value="60" class="slider" id="myRange" step="0.5">
                   </div>
                 <button id="closeModal">Cerrar</button>
             </div>
@@ -53,6 +61,23 @@
             document.getElementById('closeModal').addEventListener('click', function() {
                 document.getElementById('overlay').style.display = 'none';
             });
+        </script>
+        <audio id="bgMusic" loop>
+            <source src="audio/musica.mp3" type="audio/mp3">
+        </audio>
+        <script>
+            const audio = document.getElementById('bgMusic');
+    
+            audio.currentTime = 18.25;
+
+            // Al primer clic en el body, reproduce el audio
+            document.body.addEventListener('click', () => {
+                audio.play().then(() => {
+                    console.log("Música reproducida");
+                }).catch(error => {
+                    console.error("Error al reproducir audio:", error);
+                });
+            }, { once: true }); // Solo se ejecuta una vez
         </script>
     </body>
 </html>
