@@ -24,7 +24,7 @@
                 <a href="#" id="openOptions">OPCIONES</a>
             </li>
             <li>
-                <a href="#">COLECCION</a>
+                <a href="#" id="openCol">COLECCION</a>
             </li>
             <li>
                 <a href="iniciosecion.html">CAMBIAR CUENTA</a>
@@ -49,7 +49,15 @@
                 <div class="slidecontainer">
                     <input type="range" min="0.5" max="2" value="60" class="slider" id="myRange" step="0.5">
                   </div>
-                <button id="closeModal">Cerrar</button>
+                <button class="clolseModal" id="closeOptionsModal">Cerrar</button>
+            </div>
+        </div>
+        <div id="overlay2">
+            <div id="modal">
+                <h3>Coleccion</h3>
+                <p>coleccion</p>
+                <img src="https://static.wixstatic.com/media/37b42e_9e1a2137edc94275b1050ed7c3f931a9~mv2.png/v1/fill/w_700,h_700,al_c,q_90,enc_avif,quality_auto/37b42e_9e1a2137edc94275b1050ed7c3f931a9~mv2.png" width=100vw>
+                <button class="closeModal" id="closeColModal">Cerrar</button>
             </div>
         </div>
         <script>
@@ -57,9 +65,18 @@
                 event.preventDefault(); // Prevents navigating away
                 document.getElementById('overlay').style.display = 'block';
             });
-        
-            document.getElementById('closeModal').addEventListener('click', function() {
+
+            document.getElementById('openCol').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevents navigating away
+                document.getElementById('overlay2').style.display = 'block';
+            });
+
+            document.getElementById('closeOptionsModal').addEventListener('click', function() {
                 document.getElementById('overlay').style.display = 'none';
+            });
+
+            document.getElementById('closeColModal').addEventListener('click', function() {
+                document.getElementById('overlay2').style.display = 'none';
             });
         </script>
         <audio id="bgMusic" loop>
