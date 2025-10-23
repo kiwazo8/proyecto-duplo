@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-color: #ff00ff;
+    background-image: url("../TIMI/Fondo\ Inicio.png");
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     margin: 0;
 }
@@ -11,18 +11,34 @@ a {
 }
 
 ul {
+    display: flex;
     list-style-type: none;
+    justify-content: center;
+}
+
+.Jugar {
+    margin-left: 25%;
+    margin-right: 30%;
+}
+
+.Cuenta {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1%;
 }
 
 h1 {
     color: #ffff00; 
     font-size: 8vw;
-    margin-top: 0;
+    margin-top: 1vh;
+    margin-bottom: 0;
 }
 
 h2 {
     color: #0000ff;
     font-size:  5vw;
+    margin: 0;
 }
 
 h3 {
