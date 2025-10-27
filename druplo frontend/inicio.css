@@ -3,12 +3,14 @@ body {
     background-image: url("../TIMI/Fondo\ Inicio.png");
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     margin: 0;
+    height: 50vh;
 }
 
 ul {
     display: flex;
     list-style-type: none;
     justify-content: center;
+    margin-bottom: 5vh;
 }
 
 .Jugar {
@@ -16,15 +18,17 @@ ul {
     align-items: center;
     height: 20vh;
     background-color: #D6A766;
-    border-radius: 5rem;
+    border-radius: 2.5rem;
     padding: 7.5vh;
     transition: background-color 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+    margin-left: 10vw;
+    margin-right: 10vw;
 }
 
 .Jugar:hover {
     background-color: peru;
     transform: rotate(3deg);
-    box-shadow: 0px 0px 20px black;
+    box-shadow: 0px 0px 2rem black;
 }
 
 .Cuenta {
@@ -102,7 +106,37 @@ h3 {
     padding: 10px;
     display: grid;
     align-items: center;
+    width: 15vw;
     justify-items: center;
-    width: 32vh;
-    border-radius: 10px;
+    border-radius: 2.5rem;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.opciones:hover {
+    background-color: rgb(92, 92, 92);
+    box-shadow: 0px 0px 2rem black;
+}
+
+.boton-opciones {
+    transition: transform 0.5s;
+}
+
+.boton-opciones:hover {
+    transform: rotate(45deg);
+}
+
+.Coleccion {
+    background-color: rgb(175, 0, 0);
+    padding: 10px;
+    display: grid;
+    align-items: center;
+    width: 15vw;
+    justify-items: center;
+    border-radius: 2.5rem;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.Coleccion:hover {
+    background-color: rgb(126, 0, 0);
+    box-shadow: 0px 0px 2rem black;
 }
