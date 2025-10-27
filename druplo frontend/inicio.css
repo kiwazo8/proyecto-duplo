@@ -5,11 +5,6 @@ body {
     margin: 0;
 }
 
-a {
-    color: #00ff00;
-    font-size: 2.5vw;
-}
-
 ul {
     display: flex;
     list-style-type: none;
@@ -17,8 +12,19 @@ ul {
 }
 
 .Jugar {
-    margin-left: 25%;
-    margin-right: 30%;
+    display: grid;
+    align-items: center;
+    height: 20vh;
+    background-color: #D6A766;
+    border-radius: 5rem;
+    padding: 7.5vh;
+    transition: background-color 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.Jugar:hover {
+    background-color: peru;
+    transform: rotate(3deg);
+    box-shadow: 0px 0px 20px black;
 }
 
 .Cuenta {
@@ -79,4 +85,24 @@ h3 {
     border-radius: 10px;
     color: #0000ff;
     z-index: 1001;
+}
+
+.boton {
+    height: 20vh;
+    display: grid;
+    align-items: center;
+}
+
+.boton-jugar {
+    height: 15vh;
+}
+
+.opciones {
+    background-color: gray;
+    padding: 10px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 32vh;
+    border-radius: 10px;
 }
