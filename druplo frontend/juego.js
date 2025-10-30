@@ -116,21 +116,26 @@ function botPlayFirst(){
   renderCartas();
 }
 
-function chooseBotCardWhenStarting(){
-  let min = manoBot[0];
-  for(const c of manoBot) if(c.fuerza < min.fuerza) min = c;
-  return min;
+function chooseBotCardWhenStarting() {
+  const alta = manoBot.filter(c => c.fuerza >= 10);
+  if (alta.length) return alta[Math.floor(Math.random() * alta.length)];
+  return manoBot.reduce((a, b) => a.fuerza < b.fuerza ? a : b);
 }
 
 function botRespondToPlayer(cartaJugador) {
   if (rondaTerminada) return;
   let posibles = manoBot.filter(c => c.fuerza > cartaJugador.fuerza);
+
   let choice;
   if (posibles.length > 0) {
     choice = posibles.reduce((a, b) => a.fuerza < b.fuerza ? a : b);
+    if (manoBot.length === 1) choice = posibles.reduce((a, b) => a.fuerza > b.fuerza ? a : b);
   } else {
-    choice = manoBot.reduce((a, b) => a.fuerza < b.fuerza ? a : b);
+    choice = Math.random() < 0.85 
+      ? manoBot.reduce((a,b) => a.fuerza < b.fuerza ? a : b)
+      : manoBot.reduce((a,b) => a.fuerza > b.fuerza ? a : b);
   }
+
   manoBot.splice(manoBot.indexOf(choice), 1);
   playedBot = choice;
   log(`Bot jugó ${choice.numero} de ${choice.palo}`);
@@ -351,6 +356,26 @@ function limpiarMesa() {
   if (mesaCenter) mesaCenter.innerHTML = "";
   offsetPlayer = 0;
   offsetBot = 0;
+}
+
+function botQuiereEnvido(tuEnvido) {
+  const eB = calcularEnvido(manoBot);
+  if (eB >= tuEnvido + 3) return true;
+  if (eB >= tuEnvido - 2) return Math.random() < 0.7;
+  return false;
+}
+
+function botQuiereTruco() {
+  const sum = manoBot.reduce((s,c)=>s+c.fuerza,0);
+  if (sum >= 30) return true;
+  if (sum >= 24) return Math.random() < 0.7;
+  return Math.random() < 0.3;
+}
+
+const bluff = Math.random() < 0.1;
+if(bluff) {
+  log("Bot blufeó y jugó fuerte aun con mano débil");
+  choice = manoBot.reduce((a,b) => a.fuerza > b.fuerza ? a : b);
 }
 
 document.addEventListener("DOMContentLoaded", repartir);
