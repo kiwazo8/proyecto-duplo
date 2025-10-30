@@ -1,31 +1,22 @@
 body {
-    margin-top: 0;
     text-align: center;
     background-image: url("../TIMI/Fondo\ Inicio.png");
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     margin: 0;
-    height: 100%;
-    width: 100vw;
+    height: 50vh;
 }
 
 ul {
     display: flex;
     list-style-type: none;
     justify-content: center;
-    margin-bottom: 1vh;
-    position: absolute;
-    bottom: 0;
-    left: 4.5vw;
-    width: 95vw;
-    max-width: 95vw; /* Limit to 95% of viewport width */
-    transition: width 0.3s ease, left 0.3s ease, height 0.3s ease;  /* Smooth transition */
+    margin-bottom: 5vh;
 }
-
 
 .Jugar {
     display: grid;
     align-items: center;
-    height: 18vh;
+    height: 20vh;
     background-color: #D6A766;
     border-radius: 2.5rem;
     padding: 7.5vh;
@@ -36,7 +27,7 @@ ul {
 
 .Jugar:hover {
     background-color: peru;
-    transform: rotate(3deg) translate(0, -5vh);
+    transform: rotate(3deg);
     box-shadow: 0px 0px 2rem black;
 }
 
@@ -90,8 +81,7 @@ h3 {
 
 #modal {
     position: center;
-    width: 1366px;
-    height: 768px;
+    width: 100%;
     background-color: #ffff00;
     padding: 2em;
     border-radius: 1px;
@@ -116,80 +106,13 @@ h3 {
     top: 30px;
     right: 30px;
 }
-.carta1{
-    height: 150px;  
-    width: 100px;
+.cards{
+    width: 100%;
     position: center;
-}
-.carta2{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta2{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta3{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta4{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta5{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta6{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta7{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta8{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta9{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta10{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta11{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta12{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta13{
-    height: 150px;  
-    width: 100px;
-    position: center;
-}
-.carta14{
-    height: 150px;  
-    width: 100px;
-    position: center;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .boton {
@@ -204,8 +127,6 @@ h3 {
 
 .opciones {
     background-color: gray;
-    height: 30vh;
-    aspect-ratio: 1 / 1;
     padding: 10px;
     display: grid;
     align-items: center;
@@ -229,32 +150,17 @@ h3 {
 }
 
 .Coleccion {
-    height: 30vh;
     background-color: rgb(175, 0, 0);
     padding: 10px;
     display: grid;
     align-items: center;
-    aspect-ratio: 1 / 1;
+    width: 15vw;
     justify-items: center;
     border-radius: 2.5rem;
     transition: background-color 0.5s, box-shadow 0.5s;
-    transition: height 0.3s ease, ;
 }
 
 .Coleccion:hover {
     background-color: rgb(126, 0, 0);
     box-shadow: 0px 0px 2rem black;
-}
-
-@media screen and (min-height: 1366px) {
-    ul {
-        left: 100%;
-    }
-}
-
-/* Optional: Handle very large screens or edge cases */
-@media screen and (min-width: 1200px) {
-    ul {
-        width: 5vw; /* Further reduce width if necessary */
-    }
 }
