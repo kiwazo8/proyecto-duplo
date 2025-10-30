@@ -8,6 +8,9 @@ let manoBot = [];
 let puntosJugador = 0;
 let puntosBot = 0;
 
+let offsetPlayer = 0;
+let offsetBot = 0;
+
 let empiezaJugador = true;
 let turnoJugador = true;
 let trucoNivel = -1;
@@ -56,6 +59,7 @@ function repartir(){
   safeDisable("btnFaltaEnvido", false);
   safeDisable("btnMazo", false);
   renderCartas();
+  limpiarMesa();
   log(`Nueva mano. ${empiezaJugador ? "Vos sos mano" : "Bot es mano"}.`);
   if(!empiezaJugador) setTimeout(()=> botPlayFirst(), 700);
 }
@@ -90,6 +94,7 @@ function playerPlay(i){
   safeDisable("btnRealEnvido", true);
   safeDisable("btnFaltaEnvido", true);
   log(`Jugaste ${carta.numero} de ${carta.palo}`);
+ mostrarCartasEnMesa("jugador", carta);
   if(playedBot){
     resolveBaza();
   } else {
@@ -106,6 +111,7 @@ function botPlayFirst(){
   if(idx>=0) manoBot.splice(idx,1);
   playedBot = cartaBot;
   log(`Bot jugó ${cartaBot.numero} de ${cartaBot.palo}`);
+  mostrarCartasEnMesa("bot", cartaBot);
   turnoJugador = true;
   renderCartas();
 }
@@ -128,6 +134,7 @@ function botRespondToPlayer(cartaJugador) {
   manoBot.splice(manoBot.indexOf(choice), 1);
   playedBot = choice;
   log(`Bot jugó ${choice.numero} de ${choice.palo}`);
+  mostrarCartasEnMesa("bot", choice);
   resolveBaza();
   renderCartas();
 }
@@ -202,25 +209,17 @@ function finishHandByBazas(){
   setTimeout(()=> repartir(), 1200);
 }
 
-function irseAlMazo(){
-  if(rondaTerminada) return;
-  rondaTerminada = true;
-  let pts = 1;
-  if(trucoNivel === 0) pts = 1;
-  else if(trucoNivel === 1) pts = 2;
-  else if(trucoNivel === 2) pts = 3;
-  puntosBot += pts;
-  log(`Te fuiste al mazo. Bot obtiene ${pts} punto(s).`);
-  actualizarPuntos();
-  safeDisable("btnMazo", true);
-  setTimeout(()=> repartir(), 1200);
-  if(!envidoCantado){
-    if(turnoJugador){
-      puntosBot += 1;
-    } else {
-      puntosJugador += 1;
-    }
+function irseAlMazo() {
+  if (!envidoCantado) {
+    puntosBot += 2;
+    actualizarPuntos();
+    log("Te fuiste al mazo. El bot gana 2 puntos.");
+  } else {
+    puntosBot += 1;
+    actualizarPuntos();
+    log("Te fuiste al mazo. El bot gana 1 punto.");
   }
+  setTimeout(()=> repartir(), 600);
 }
 
 function cantarTruco(){
@@ -322,38 +321,36 @@ function log(txt){
   d.scrollTop = d.scrollHeight;
 }
 
-function mostrarFinal(ganador, mensaje) {
-  const overlay = document.createElement("div");
-  overlay.id = "overlayFinal";
-  overlay.style.cssText = `
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.9); color:white; display:flex;
-    flex-direction:column; align-items:center; justify-content:center;
-    font-size:2rem; z-index:9999;
-  `;
-  overlay.innerHTML = `
-    <div>${mensaje}</div>
-    <div style="margin:20px">Puntaje final: Vos ${puntosJugador} - Bot ${puntosBot}</div>
-    <button id="btnReiniciar" style="padding:10px 20px; font-size:1.5rem; cursor:pointer;">Jugar de nuevo</button>
-  `;
-  document.body.appendChild(overlay);
-  document.getElementById("btnReiniciar").onclick = ()=>{
-    document.body.removeChild(overlay);
-    puntosJugador = 0;
-    puntosBot = 0;
-    repartir();
-    actualizarPuntos();
-  };
+function mostrarCartasEnMesa(origen, carta) {
+  const mesaCenter = document.getElementById("mesa-center");
+  if (!mesaCenter || !carta) return;
+
+  const nuevaCarta = document.createElement("div");
+  nuevaCarta.classList.add("carta-mesa");
+  nuevaCarta.textContent = `${carta.numero} de ${carta.palo}`;
+
+  if (origen === "bot") {
+    nuevaCarta.classList.add("carta-bot");
+    const offset = offsetBot * 10;
+    nuevaCarta.style.setProperty("--offset", `${offset}px`);
+    nuevaCarta.style.zIndex = 100 + offsetBot;
+    mesaCenter.appendChild(nuevaCarta);
+    offsetBot++;
+  } else {
+    nuevaCarta.classList.add("carta-jugador");
+    const offset = offsetPlayer * 10;
+    nuevaCarta.style.setProperty("--offset", `${offset}px`);
+    nuevaCarta.style.zIndex = 200 + offsetPlayer;
+    mesaCenter.appendChild(nuevaCarta);
+    offsetPlayer++;
+  }
 }
 
-function checkFinPartido() {
-  if (puntosJugador >= 15 || puntosBot >= 15) {
-    const ganador = puntosJugador >= 15 ? "Vos" : "El bot";
-    const mensaje = puntosJugador >= 15 ? "Te ganaste el partido, je!" : "Te re cagó el bot, boludo!";
-    mostrarFinal(ganador, mensaje);
-  } else {
-    setTimeout(()=> repartir(), 1200);
-  }
+function limpiarMesa() {
+  const mesaCenter = document.getElementById("mesa-center");
+  if (mesaCenter) mesaCenter.innerHTML = "";
+  offsetPlayer = 0;
+  offsetBot = 0;
 }
 
 document.addEventListener("DOMContentLoaded", repartir);

@@ -1,22 +1,31 @@
 body {
+    margin-top: 0;
     text-align: center;
     background-image: url("../TIMI/Fondo\ Inicio.png");
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     margin: 0;
-    height: 50vh;
+    height: 100%;
+    width: 100vw;
 }
 
 ul {
     display: flex;
     list-style-type: none;
     justify-content: center;
-    margin-bottom: 5vh;
+    margin-bottom: 1vh;
+    position: absolute;
+    bottom: 0;
+    left: 4.5vw;
+    width: 95vw;
+    max-width: 95vw; /* Limit to 95% of viewport width */
+    transition: width 0.3s ease, left 0.3s ease, height 0.3s ease;  /* Smooth transition */
 }
+
 
 .Jugar {
     display: grid;
     align-items: center;
-    height: 20vh;
+    height: 18vh;
     background-color: #D6A766;
     border-radius: 2.5rem;
     padding: 7.5vh;
@@ -27,7 +36,7 @@ ul {
 
 .Jugar:hover {
     background-color: peru;
-    transform: rotate(3deg);
+    transform: rotate(3deg) translate(0, -5vh);
     box-shadow: 0px 0px 2rem black;
 }
 
@@ -195,6 +204,8 @@ h3 {
 
 .opciones {
     background-color: gray;
+    height: 30vh;
+    aspect-ratio: 1 / 1;
     padding: 10px;
     display: grid;
     align-items: center;
@@ -218,17 +229,32 @@ h3 {
 }
 
 .Coleccion {
+    height: 30vh;
     background-color: rgb(175, 0, 0);
     padding: 10px;
     display: grid;
     align-items: center;
-    width: 15vw;
+    aspect-ratio: 1 / 1;
     justify-items: center;
     border-radius: 2.5rem;
     transition: background-color 0.5s, box-shadow 0.5s;
+    transition: height 0.3s ease, ;
 }
 
 .Coleccion:hover {
     background-color: rgb(126, 0, 0);
     box-shadow: 0px 0px 2rem black;
+}
+
+@media screen and (min-height: 1366px) {
+    ul {
+        left: 100%;
+    }
+}
+
+/* Optional: Handle very large screens or edge cases */
+@media screen and (min-width: 1200px) {
+    ul {
+        width: 5vw; /* Further reduce width if necessary */
+    }
 }
